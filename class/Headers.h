@@ -15,7 +15,7 @@
 
 using namespace std;
 
-#pragma endregion
+//#pragma endregion
 
 // разделительная строка для работы с расширенными символами
 void wsp(int n, wchar_t corner = '*', wchar_t filler = '-')
