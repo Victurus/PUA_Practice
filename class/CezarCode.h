@@ -23,8 +23,9 @@ class CezarCode
     bool menu;
     map<wchar_t, ch_coder> symbolscode;
     int decodesymbol(int B, int m);
+    void setsimple(int m);
   public:
-    CezarCode(string filename, int new_k, int new_n);
+    CezarCode(string filename, int new_k);
     CezarCode(string filename);
 
     void codefile();
@@ -34,10 +35,9 @@ class CezarCode
     ~CezarCode();
 };
 
-CezarCode::CezarCode(string filename, int new_k, int new_n)
+CezarCode::CezarCode(string filename, int new_k)
 {
   this->k = new_k;
-  this->n = new_n;
   this->operationfile = filename;
   this->menu = true;
   this->symbols = L"";
@@ -61,6 +61,18 @@ int CezarCode::decodesymbol(int B, int m)
     cur += m;
   }
   return abs((cur - this->k) / this->n);
+}
+
+void CezarCode::setsimple(int m)
+{
+  for(int i = 2; i < m; i++)
+  {
+    if (nod(i, m) == 1)
+    {
+      n = i;
+      break;
+    }
+  }
 }
 
 void CezarCode::codefile()
@@ -87,6 +99,7 @@ void CezarCode::codefile()
 
     int cnt = 0;
     int m = (int) reader.size();
+    setsimple(m);
 
     wout << n << L" "
          << k << L" "

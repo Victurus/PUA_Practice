@@ -11,3 +11,4 @@ run:
 
 clean:
 	rm -rf *.o
+	rm main
