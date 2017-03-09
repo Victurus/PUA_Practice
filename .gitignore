@@ -3,3 +3,7 @@
 *.pdf
 *.[oa]
 *swp
+*.txt
+*.coded
+*.decoded
+test/
