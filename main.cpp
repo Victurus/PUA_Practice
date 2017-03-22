@@ -24,9 +24,13 @@ int main(int argc, char** argv)
 //  plf.count_frequency();
 //  plf.print("write/pairfrequency.txt");
   
-  PolibiySquare ps("read/input_eng.txt");
-  ps.codefile();
-  ps.printmatrix();
+//  PolibiySquare ps("read/input_eng.txt");
+//  ps.codefile();
+//  ps.printmatrix();
+
+  PolibiySquare dps("read/input_eng.coded", false);
+  dps.decodefile();
+  dps.printmatrix();
 
   return 0;
 }
