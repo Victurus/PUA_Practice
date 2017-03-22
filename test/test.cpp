@@ -33,13 +33,13 @@ int getel(int B, int n, int m, int k)
 int main()
 {
   setlocale(LC_ALL, "");
-  FILE *file;
+/*  FILE *file;
   if ((file=fopen("out.txt", "w")) == NULL)
   {
     wprintf(L"Невозможно открыть файл!\n");
     exit(1);
   }
-
+*/
 //  for(wint_t i = 0; i < 3100; i++)
 //  {
 //    if ((wchar_t) i == L'\n')
@@ -48,8 +48,8 @@ int main()
 //      fwprintf(file, L"%lc %ld \n", (wchar_t) i, i);
 //  }
 
-  freopen("in.txt", "r", stdin);
-  freopen("out.txt", "w", stdout);
+//  freopen("in.txt", "r", stdin);
+//  freopen("out.txt", "w", stdout);
 
   wchar_t c;
 //  map<wchar_t, wint_t> letters;
@@ -73,7 +73,7 @@ int main()
 //        (*it).first, (*it).second, real, B, A, (wchar_t) real, (wchar_t) B, (wchar_t) A);
 //  }
 
-  set<wchar_t> read_letters;
+/*  set<wchar_t> read_letters;
   while(wcin >> c)
     read_letters.insert(c);
  
@@ -94,6 +94,10 @@ int main()
   fclose(file);
   fclose(stdin);
   fclose(stdout);
+*/
+
+  wchar_t tmp[2] = {L'f', L'l'};
+  wcout << tmp[0] << "\t" << tmp[1] << endl;
 
   return 0;
 }

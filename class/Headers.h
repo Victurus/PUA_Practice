@@ -12,6 +12,9 @@
 #include<math.h>
 #include<locale>
 #include<algorithm>
+#include<unistd.h>
+#include<time.h>
+#include<cstdlib>
 
 using namespace std;
 
@@ -31,4 +34,12 @@ void wsp(int n, wchar_t corner = '*', wchar_t filler = '-')
 int nod(int a, int b)
 {
   return a != 0 and b != 0 ? nod(a % b, b % a) : max(a, b);
+}
+
+void progress_bar(int n)
+{
+  fflush(stdout);
+  wcout << L"\r" << setw(3) << n << L"%"
+        << L" completed:" << wstring(n, L'|');
+  fflush(stdout);
 }
