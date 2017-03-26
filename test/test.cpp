@@ -96,8 +96,11 @@ int main()
   fclose(stdout);
 */
 
-  wchar_t tmp[2] = {L'f', L'l'};
-  wcout << tmp[0] << "\t" << tmp[1] << endl;
+//  wchar_t tmp[2] = {L'f', L'l'};
+//  wcout << tmp[0] << "\t" << tmp[1] << endl;
+  wctrans_t x = wctrans("tolower");
+  wchar_t ch = towctrans(L'\n', x);
+  wcout << L" [ " << ch  << L" ] " << endl;
 
   return 0;
 }

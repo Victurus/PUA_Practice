@@ -2,6 +2,7 @@
 #include"class/LettersFrequency.h"
 #include"class/PairLettersFrequency.h"
 #include"class/PolibiySquare.h"
+#include"class/ViginerTable.h"
 
 int main(int argc, char** argv)
 {
@@ -28,9 +29,18 @@ int main(int argc, char** argv)
 //  ps.codefile();
 //  ps.printmatrix();
 
-  PolibiySquare dps("read/input_eng.coded", false);
-  dps.decodefile();
-  dps.printmatrix();
+//  PolibiySquare dps("read/input_eng.coded", false);
+//  dps.decodefile();
+//  dps.printmatrix();
+
+  ViginerTable vtc("read/input_rus.txt", L"василий");
+  vtc.codefile();
+  //vtc.printmatrix();
+  vtc.printmatrix("write/Viginer_alphabet_rus.txt");
+
+  ViginerTable vtdec("read/input_rus.coded");
+  vtdec.decodefile();
+  vtdec.printmatrix("write/Viginer_decode_rus_alphabet.txt");
 
   return 0;
 }
