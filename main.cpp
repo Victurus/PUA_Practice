@@ -3,6 +3,7 @@
 #include"class/PairLettersFrequency.h"
 #include"class/PolibiySquare.h"
 #include"class/ViginerTable.h"
+#include"class/KeyCezarCode.h"
 
 int main(int argc, char** argv)
 {
@@ -33,14 +34,19 @@ int main(int argc, char** argv)
 //  dps.decodefile();
 //  dps.printmatrix();
 
-  ViginerTable vtc("read/input_rus.txt", L"василий");
-  vtc.codefile();
-  //vtc.printmatrix();
-  vtc.printmatrix("write/Viginer_alphabet_rus.txt");
+//  ViginerTable vtc("read/input_rus.txt", L"ваaсbиcлий\n");
+//  vtc.codefile();
+//  vtc.pairmatrixprint("write/Viginer_pair_code.txt");
 
-  ViginerTable vtdec("read/input_rus.coded");
-  vtdec.decodefile();
-  vtdec.printmatrix("write/Viginer_decode_rus_alphabet.txt");
+//  ViginerTable vtdec("read/input_rus.coded");
+//  vtdec.decodefile();
+//  vtdec.pairmatrixprint("write/Viginer_pair_decode.txt" );
+
+  KeyCezarCode kcr("read/input_rus.txt", L"вася");  
+  kcr.codefile();
+
+  KeyCezarCode kcrd("read/input_rus.coded");
+  kcrd.decodefile(); 
 
   return 0;
 }
