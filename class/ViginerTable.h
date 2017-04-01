@@ -17,6 +17,7 @@ class ViginerTable
     map<wchar_t, map<wchar_t, wchar_t>> matrix;
     void fillmatrix();
     void filldecodermatrix();
+    void clearkeyword();
   public:
     ViginerTable(string operationfile_name, wstring new_keyword);
     ViginerTable(string operationfile_name);
@@ -25,14 +26,15 @@ class ViginerTable
     void codefile();
     void decodefile();
     void printmatrix(string filename);
+    void pairmatrixprint(string filename);
 };
 
 void ViginerTable::fillmatrix()
 {
   matrix.clear();
-  for(int i = 1; i < (int)alphabet.length(); i++)
+  for(int i = 0; i < (int)alphabet.length(); i++)
   {
-    for(int j = 1; j < (int)alphabet.length(); j++)
+    for(int j = 0; j < (int)alphabet.length(); j++)
     {
       matrix[alphabet[i]][alphabet[j]] = alphabet[((j + i) % alphabet.length())];
     }
@@ -42,13 +44,29 @@ void ViginerTable::fillmatrix()
 void ViginerTable::filldecodermatrix()
 {
   matrix.clear();
-  for(int i = 1; i < (int)alphabet.length(); i++)
+  for(int i = 0; i < (int)alphabet.length(); i++)
   {
-    for(int j = 1; j < (int)alphabet.length(); j++)
+    for(int j = 0; j < (int)alphabet.length(); j++)
     {
       matrix[alphabet[i]][alphabet[((j + i) % alphabet.length())]] = alphabet[j];
     }
-  } 
+  }
+}
+
+void ViginerTable::clearkeyword()
+{
+  wcout << L" Keyword cleaning" << endl;
+  wstring purekeyword = L"";
+  for(auto it = keyword.begin(); it != keyword.end(); it++)
+  {
+    if ((*it) != L' ' && (*it) != L'\n' && (*it) != L'\t' && alphabet.find((*it)) != wstring::npos) 
+      purekeyword.push_back((*it));
+    else
+      wcout << L" [" 
+            << setw(3) << wcconvert((*it)) 
+            << L" ]" << L" - incorrect character, removed." << endl;
+  }
+  keyword = purekeyword;
 }
 
 ViginerTable::ViginerTable(string operationfile_name, wstring new_keyword)
@@ -76,7 +94,7 @@ void ViginerTable::codefile()
     win.imbue( locale("ru_RU.UTF-8") );
     win.unsetf(ios::skipws);
 
-    wcout << " Start reading\n";
+    wcout << " Reading started." << endl;
     set<wchar_t> reader;
     int cnt = 0;
     wchar_t c;
@@ -87,9 +105,11 @@ void ViginerTable::codefile()
       reader.insert(ch);
       cnt++;
     }
-    wcout << L" end.\n";
+    wcout << L" Reading ended." << endl;
+
     alphabet.assign(reader.begin(), reader.end());
     fillmatrix();
+    clearkeyword();
     wcout << " Coding\n";
     string newfilename = operationfile.substr(0, operationfile.find('.')) + ".coded";
     wofstream wout(newfilename, ios::out);
@@ -111,10 +131,7 @@ void ViginerTable::codefile()
       cnt++;
       progress_bar(cnt, end);
       wchar_t ch = towctrans(c, x);
-      if (keyword_pos == 0 || ch == alphabet[0])
-        wout << ch;
-      else
-        wout << matrix[keyword[keyword_pos]][ch];
+      wout << matrix[keyword[keyword_pos]][ch];
       keyword_pos = ((keyword_pos + 1 == (int)keyword.length()) ? 0 : (keyword_pos + 1));
     }
     wcout << endl;
@@ -162,10 +179,8 @@ void ViginerTable::decodefile()
     while(win >> c)
     {
       wchar_t ch = towctrans(c, x);
-      if (ch == alphabet[0] || keyword_pos == 0)
-        wout << ch;
-      else
-        wout << matrix[keyword[keyword_pos]][ch];
+      wchar_t kws = keyword[keyword_pos];
+      wout << matrix[kws][ch];
       keyword_pos = (keyword_pos + 1 == (int)keyword.length() ? 0 : (keyword_pos + 1));
     }
     wcout << L" End decoding.\n";
@@ -184,7 +199,17 @@ void ViginerTable::printmatrix(string filename="")
 {
   // открытие файла для чтения
   if (filename != "")
-    freopen(filename.c_str(), "w", stdout);
+  {
+    if(!freopen(filename.c_str(), "w", stdout))
+    {
+      wcout << L"File was not open, standard output uses" << endl;
+    }
+    else
+    {
+      wcout << L"File opend" << endl;
+    }
+  }
+  wcout << (menu ? L"Code menu" : L"Decode menu") << endl;
 
   // параметры вывода
   wstring start = L" |";
@@ -212,6 +237,49 @@ void ViginerTable::printmatrix(string filename="")
     }
     auto val = --(*it).second.end();
     wcout << setw(gap) << wcconvert(val->second) << L" |\n";    
+  }
+  wsp(len);
+}
+
+void ViginerTable::pairmatrixprint(string filename = "")
+{
+  if (filename != "")
+  {
+    if(!freopen(filename.c_str(), "w", stdout))
+    {
+      wcout << L"File was not open, standard output uses" << endl;
+    }
+    else
+    {
+      wcout << L"File opend" << endl;
+    }
+  }
+  wcout << (menu ? L"Code menu" : L"Decode menu") << endl;
+
+  int gap = 2;
+  wstring start = L" | ";
+  wstring end = L" |";
+  wstring delim = L" ";
+  wcout << L"Алфавит:\n" << wstring(start.length(), L' '); 
+  for(auto it = alphabet.begin(); it != alphabet.end(); it++)
+  {
+    wcout << setw(gap) << wcconvert((*it)) << delim;
+  }
+  wcout << endl;
+
+  int len = start.length() + (2 * gap + delim.length() + 3) * (matrix.size() - 1) + 3 + 3 * gap + end.length();
+  wsp(len);
+  for(auto it = matrix.begin(); it != matrix.end(); it++)
+  {
+    wcout << start << setw(gap) << wcconvert((*it).first) << L" | ";
+    for(auto jt = (*it).second.begin(); jt != --(*it).second.end(); jt++)
+    {
+      wcout << L"(" << setw(gap) << wcconvert((*jt).first) 
+            << L"," << setw(gap) << wcconvert((*jt).second) << L")" << delim;
+    }
+    auto endval = (--(*it).second.end());
+    wcout << L"(" << setw(gap) << wcconvert(endval->first)
+          << L"," << setw(gap) << wcconvert(endval->second) << L")" << end << endl;
   }
   wsp(len);
 }
