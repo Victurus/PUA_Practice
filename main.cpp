@@ -5,6 +5,7 @@
 #include"class/ViginerTable.h"
 #include"class/KeyCezarCode.h"
 #include"class/PairCode.h"
+#include"class/XorCode.h"
 
 int main(int argc, char** argv)
 {
@@ -54,6 +55,12 @@ int main(int argc, char** argv)
 
 //  PairCode pcde("read/input_rus.coded");
 //  pcde.decodefile();
+
+//  XorCode xc("read/input_rus.txt", L"василий");
+//  xc.codefile();
+
+//  XorCode xcd("read/input_rus.coded");
+//  xcd.decodefile();
 
   return 0;
 }
