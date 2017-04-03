@@ -15,3 +15,4 @@ run:
 clean:
 	rm -rf *.o
 	rm -f main
+	rm -f read/*coded

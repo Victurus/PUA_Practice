@@ -4,6 +4,7 @@
 #include"class/PolibiySquare.h"
 #include"class/ViginerTable.h"
 #include"class/KeyCezarCode.h"
+#include"class/PairCode.h"
 
 int main(int argc, char** argv)
 {
@@ -42,11 +43,17 @@ int main(int argc, char** argv)
 //  vtdec.decodefile();
 //  vtdec.pairmatrixprint("write/Viginer_pair_decode.txt" );
 
-  KeyCezarCode kcr("read/input_rus.txt", L"вася");  
-  kcr.codefile();
+//  KeyCezarCode kcr("read/input_rus.txt", L"вася");  
+//  kcr.codefile();
 
-  KeyCezarCode kcrd("read/input_rus.coded");
-  kcrd.decodefile(); 
+//  KeyCezarCode kcrd("read/input_rus.coded");
+//  kcrd.decodefile(); 
+
+//  PairCode pc("read/input_rus.txt", L"здравствуйте, я ваша тётя! вы меня не ждали, а я вот пришла! ну, я вам сейчас устрою, хе-хе");
+//  pc.codefile();
+
+//  PairCode pcde("read/input_rus.coded");
+//  pcde.decodefile();
 
   return 0;
 }
