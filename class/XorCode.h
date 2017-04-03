@@ -23,7 +23,7 @@ class XorCode
 
     void codefile();
     void decodefile();
-    wostream &operator<<(wostream &stream);
+    friend wostream &operator<<(wostream &stream, XorCode o);
 };
 
 XorCode::XorCode(string operationfile_val, wstring keyword_val)
@@ -143,7 +143,17 @@ void XorCode::decodefile()
   }
 }
 
-wostream &XorCode::operator<<(wostream &stream)
+wostream &operator<<(wostream &stream, XorCode o)
 {
+  stream << endl;
+  wstring menu_name = (o.menu ? L"кодирование" : L"декодирование");
+  int len = max(menu_name.size(), o.keyword.size());
+  stream << L" Меню: " << setw(len) << menu_name << endl;
+  stream << L" Ключевое слово: " << setw(len) << o.keyword << endl;
+  stream << L" Алфавит: ";
+  for(auto it = o.alphabet.begin(); it != o.alphabet.end(); it++)
+  {
+    stream << setw(2) << wcconvert((*it)) << L" ";
+  }
   return stream;
 }
