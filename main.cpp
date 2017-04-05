@@ -6,6 +6,11 @@
 #include"class/KeyCezarCode.h"
 #include"class/PairCode.h"
 #include"class/XorCode.h"
+#include"class/ColumnTransposition.h"
+#include"class/KvalAlphabet.h"
+
+
+#include"class/GamXorSeq.h"
 
 int main(int argc, char** argv)
 {
@@ -36,7 +41,7 @@ int main(int argc, char** argv)
 //  dps.decodefile();
 //  dps.printmatrix();
 
-//  ViginerTable vtc("read/input_rus.txt", L"ваaсbиcлий\n");
+//  ViginerTable vtc("read/input_rus.txt", L"василий\n");
 //  vtc.codefile();
 //  vtc.pairmatrixprint("write/Viginer_pair_code.txt");
 
@@ -58,9 +63,34 @@ int main(int argc, char** argv)
 
 //  XorCode xc("read/input_rus.txt", L"василий");
 //  xc.codefile();
+//  wcout << xc;
 
 //  XorCode xcd("read/input_rus.coded");
 //  xcd.decodefile();
+
+//  ColumnTransposition ct("read/input_rus.txt", L"василий");
+//  ct.codefile();
+//  wcout << ct;
+
+//  ColumnTransposition ctd("read/input_rus.coded");
+//  ctd.decodefile();
+//  wcout << ctd;
+
+//  KvalAlphabet kva("read/input_rus.txt", 5, 7);
+//  kva.codefile();
+//  wcout << kva;
+
+//  KvalAlphabet kvadec("");
+//  kvadec.decodefile();
+//  wcout << kvadec;
+
+  GamXorSeq gxs("read/input_rus.txt", 5, 7);
+  gxs.codefile();
+  wcout << gxs;
+
+  GamXorSeq gxsdec("read/input_rus.coded");
+  gxsdec.decodefile();
+  wcout << gxsdec;
 
   return 0;
 }
