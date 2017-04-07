@@ -8,8 +8,7 @@
 #include"class/XorCode.h"
 #include"class/ColumnTransposition.h"
 #include"class/KvalAlphabet.h"
-
-
+#include"class/RegGamXorSeq.h"
 #include"class/GamXorSeq.h"
 
 int main(int argc, char** argv)
@@ -71,26 +70,34 @@ int main(int argc, char** argv)
 //  ColumnTransposition ct("read/input_rus.txt", L"василий");
 //  ct.codefile();
 //  wcout << ct;
-
+//
 //  ColumnTransposition ctd("read/input_rus.coded");
 //  ctd.decodefile();
 //  wcout << ctd;
 
-//  KvalAlphabet kva("read/input_rus.txt", 5, 7);
+//  KvalAlphabet kva("read/input_rus.txt", 7, 5);
 //  kva.codefile();
 //  wcout << kva;
 
-//  KvalAlphabet kvadec("");
+//  KvalAlphabet kvadec("read/input_rus.coded");
 //  kvadec.decodefile();
 //  wcout << kvadec;
 
-  GamXorSeq gxs("read/input_rus.txt", 5, 7);
-  gxs.codefile();
-  wcout << gxs;
+//  GamXorSeq gxs("read/input_rus.txt", 5, 7);
+//  gxs.codefile();
+//  wcout << gxs;
 
-  GamXorSeq gxsdec("read/input_rus.coded");
-  gxsdec.decodefile();
-  wcout << gxsdec;
+//  GamXorSeq gxsdec("read/input_rus.coded");
+//  gxsdec.decodefile();
+//  wcout << gxsdec;
+
+  RegGamXorSeq rgxs("read/input_rus.txt", L"рики-тики");
+  rgxs.codefile();
+  wcout << rgxs;
+
+  RegGamXorSeq rgxsdec("read/input_rus.coded");
+  rgxsdec.decodefile();
+  wcout << rgxsdec;
 
   return 0;
 }
